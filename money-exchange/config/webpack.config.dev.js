@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
@@ -159,41 +160,31 @@ module.exports = {
           {
             test: /\.css$/,
             use: [
-              require.resolve('style-loader'),
+              'style-loader',
               {
-                loader: require.resolve('css-loader'),
-                options: {
-                  importLoaders: 1,
-                },
+                loader: 'css-loader',
+                query: {
+                  modules: true,
+                  localIdentName: '[name]__[local]___[hash:base64:5]'
+                }
               },
-              {
-                loader: require.resolve('postcss-loader'),
-                options: {
-                  // Necessary for external CSS imports to work
-                  // https://github.com/facebookincubator/create-react-app/issues/2677
-                  ident: 'postcss',
-                  plugins: () => [
-                    require('postcss-flexbugs-fixes'),
-                    autoprefixer({
-                      browsers: [
-                        '>1%',
-                        'last 4 versions',
-                        'Firefox ESR',
-                        'not ie < 9', // React doesn't support IE8 anyway
-                      ],
-                      flexbox: 'no-2009',
-                    }),
-                  ],
-                },
-              },
-            ],
+              'postcss-loader'
+            ]
           },
           {
             test: /\.sass$/,
-            loaders: [
-              require.resolve('style-loader'),
-              require.resolve('css-loader'),
-              require.resolve('sass-loader')
+            use: [
+              'style-loader',
+              {
+                loader: 'css-loader',
+                query: {
+                  modules: true,
+                  sourceMap: true,
+                  importLoaders: 2,
+                  localIdentName: '[name]__[local]___[hash:base64:5]'
+                }
+              },
+              'sass-loader'
             ]
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
@@ -219,6 +210,8 @@ module.exports = {
     ],
   },
   plugins: [
+    // Make our final CSS of SASS Modules
+    new ExtractTextPlugin({ filename: 'style.css', allChunks: true }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
