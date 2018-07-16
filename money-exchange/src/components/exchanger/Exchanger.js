@@ -6,6 +6,8 @@ import Sorting from "../forms/sorting/Sorting";
 import BanksList from "../content/banksList/BanksList";
 import MapBox from "../map/mapBox/MapBox";
 
+import style from "./exchanger.sass";
+
 class Exchanger extends React.Component {
     render() {
         return (
