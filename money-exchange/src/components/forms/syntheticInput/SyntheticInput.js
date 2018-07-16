@@ -1,13 +1,13 @@
 import React from "react";
 
-class Sorting extends React.Component {
+class syntheticInput extends React.Component {
     render() {
         return (
             <div>
-                module: Sorting
+                module: syntheticInput
             </div>
         );
     }
 }
 
-export default Sorting;
+export default syntheticInput;

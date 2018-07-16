@@ -7,7 +7,14 @@ import BanksList from "../content/banksList/BanksList";
 import MapBox from "../map/mapBox/MapBox";
 
 class Exchanger extends React.Component {
-    
+    render() {
+        return (
+            <div>
+                module: Exchanger<br />
+                extensions: <Pair />, <Keyboard />, <Sorting />, <BanksList />, <MapBox />
+            </div>
+        );
+    }
 }
 
 export default Exchanger;
