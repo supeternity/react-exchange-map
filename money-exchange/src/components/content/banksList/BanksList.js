@@ -3,7 +3,7 @@ import React from "react";
 import BankItem from "../bankItem/BankItem";
 import BranchesList from "../branchesList/BranchesList";
 
-import style from "./banksList.sass";
+//import style from "./banksList.sass";
 
 class BanksList extends React.Component {
     render() {

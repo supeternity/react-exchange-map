@@ -1,6 +1,6 @@
 import React from "react";
 
-import style from "./bankItem.sass";
+//import style from "./bankItem.sass";
 
 class BankItem extends React.Component {
     render() {

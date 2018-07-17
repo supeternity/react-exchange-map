@@ -1,6 +1,6 @@
 import React from "react";
 
-import style from "./branchItem.sass";
+//import style from "./branchItem.sass";
 
 class BranchItem extends React.Component {
     render() {

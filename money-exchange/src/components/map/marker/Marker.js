@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import style from "./marker.sass";
+//import style from "./marker.sass";
 
 class Marker extends PureComponent {
     render() {

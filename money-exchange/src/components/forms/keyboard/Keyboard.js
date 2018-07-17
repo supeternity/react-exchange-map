@@ -1,6 +1,6 @@
 import React from "react";
 
-import style from "./keyboard.sass";
+//import style from "./keyboard.sass";
 
 class Keyboard extends React.Component {
     render() {

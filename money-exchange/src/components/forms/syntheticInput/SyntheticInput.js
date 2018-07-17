@@ -1,6 +1,6 @@
 import React from "react";
 
-import style from "./syntheticInput.sass";
+//import style from "./syntheticInput.sass";
 
 class syntheticInput extends React.Component {
     render() {
