@@ -15,11 +15,16 @@ body {
     height: 100vh;
     font-size: 1.4vw;
     letter-spacing: 0.4pt;
+    user-select: none;
   }
   
   input, textarea, select, button {
     font-size: 200%;
     font-family: 'Roboto', sans-serif;
+  }
+
+  textarea:focus, input:focus, select:focus {
+    outline: none;
   }
   
   .timi-ui-cell-slave {
@@ -32,7 +37,6 @@ body {
     left: 61.63vw;
     right: 0;
     bottom: 0;
-    background: url("./resources/images/map.jpg") center center no-repeat/cover;
   }
   
   .timi-ex {
@@ -70,6 +74,8 @@ body {
     border: 3pt solid #EDF0F4;
     border-left: 0px;
     border-radius: 0 25px 25px 0;
+    font-size: 200%;
+    transition: 0.3s color ease-in-out;
   }
   
   .timi-ex .timi-ex-filter .timi-ex-data {
@@ -88,7 +94,9 @@ body {
     background: url("./resources/images/vectors/icons/arrow-down.svg") no-repeat center right 30px/30px;
     -webkit-appearance: none;
     appearance: none;
+    transition: 0.3s border-color ease-in-out;
   }
+
   .timi-ex .timi-ex-filter .timi-drop-call::-ms-expand {
     display: none;
   }
@@ -191,7 +199,7 @@ body {
   }
   
   .timi-ex .timi-ex-bank .timi-delta-plus {
-    text-transform: uppercase;
+    
     color: #8ea793;
   }
   

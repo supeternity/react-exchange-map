@@ -1,0 +1,129 @@
+.timi-keyboard {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding: 0 30px;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow: hidden;
+    height: 0px;
+    background: #fff;
+    box-shadow: -50px 40px 50px 0px #ffffff;
+    transition: 0.3s height ease-in-out;
+    z-index: 1;
+}
+.timi-keyboard.tk-show {
+    height: 390px;
+}
+.timi-keyboard .timi-keyboard-keys {
+    padding-bottom: 30px;
+}
+@keyframes board-key {
+    0% {
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0) 0%, rgba(219,234,255,0) 100%);
+        transform: scale(1);
+    }
+    39% {
+        background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(219,234,255,1) 100%);
+        transform: scale(1.2);
+    }
+    61% {
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0) 0%, rgba(219,234,255,0) 100%);
+        transform: scale(1);
+    }
+}
+.timi-keyboard .timi-keyboard-key {
+    position: relative;
+    display: inline-block;
+    padding: 30px 0;
+    width: 16.4%;
+    font-size: 200%;
+    text-align: center;
+    border: 1pt solid #EDF0F4;
+    transition-duration: 0.8s;
+}
+.timi-keyboard .timi-keyboard-key::after {
+    position: absolute;
+    content: " ";
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 0.7vw solid rgba(58,138,253,0);
+    transition: 0.7s all;
+    transition-timing-function: cubic-bezier(0.140, 0.160, 0.000, 0.985);
+}
+.timi-keyboard .timi-keyboard-key:active::after {
+    border: 0vw solid rgba(58,138,253,1);
+    transition: 0s;
+}
+.timi-keyboard .timi-keyboard-key:nth-child(-n+6) {
+    border-top: 0;
+    margin-top: 30px;
+}
+.timi-keyboard .timi-keyboard-key:nth-child(1n+7) {
+    border-bottom: 0;
+}
+.timi-keyboard .timi-keyboard-key:nth-child(1), .timi-keyboard .timi-keyboard-key:nth-child(7) {
+    border-left: 0;
+}
+.timi-keyboard .timi-keyboard-key:nth-child(6), .timi-keyboard .timi-keyboard-key:nth-child(12) {
+    border-right: 0;
+}
+
+.timi-keyboard .timi-keyboard-backspace {
+    color: transparent;
+    background: url('./resources/backspace.svg') no-repeat center center / 40px;
+}
+@keyframes successButton {
+    from {
+        background-size: 75px;
+        opacity: 0;
+    }
+    to {
+        background-size: 65px;
+        opacity: 1;
+    }
+}
+.timi-keyboard .timi-keyboard-close.tkc-anima {
+    animation-duration: 0.7s;
+    animation-name: successButton;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+.timi-keyboard .timi-keyboard-close {
+    width: 100%;
+    height: 70px;
+    border-radius: 0 0 25px 25px;
+    background: url('./resources/checked.svg') no-repeat center center / 65px;
+}
+
+.timi-keyboard-fader {
+    position: absolute;
+    left: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: 0.3s opacity ease-in-out;
+}
+.timi-keyboard-fader.tkf-show {
+    height: 83vh;
+    opacity: 0.61;
+}
+
+.tkc-custom-cursor {
+    display: inline-block;
+    vertical-align: top;
+    background-color: #3A8AFD;
+    width: 0.16vw;
+    height: 3.2vw;
+    opacity: 0;
+    transition: 0.3s opacity ease-in;
+}
+.tkc-custom-cursor.tkc-show {
+    opacity: 1;
+}

@@ -19,7 +19,7 @@ class Exchanger extends React.Component {
                 two: "usd"
             },
             sorting: {
-                trade: "buy",
+                data: "buy",
                 type: "DESC"
             }
         };
@@ -60,9 +60,9 @@ class Exchanger extends React.Component {
         })
     }
 
-    getSorting(trade) {
+    getSorting(transfer) {
         let sort = {
-            trade: trade,
+            data: transfer,
             type: ''
         }
 
@@ -70,7 +70,7 @@ class Exchanger extends React.Component {
 
         this.setState({
             sorting: {
-                trade: sort.trade,
+                data: sort.data,
                 type: sort.type
             }
         })
