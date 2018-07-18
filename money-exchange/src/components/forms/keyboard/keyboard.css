@@ -8,12 +8,12 @@
     overflow: hidden;
     height: 0px;
     background: #fff;
-    box-shadow: -50px 40px 50px 0px #ffffff;
     transition: 0.3s height ease-in-out;
+    box-shadow: 0 30px 31px -19px #cecece;
     z-index: 1;
 }
 .timi-keyboard.tk-show {
-    height: 390px;
+    height: 472px;
 }
 .timi-keyboard .timi-keyboard-keys {
     padding-bottom: 30px;
@@ -93,9 +93,16 @@
 }
 .timi-keyboard .timi-keyboard-close {
     width: 100%;
-    height: 70px;
-    border-radius: 0 0 25px 25px;
-    background: url('./resources/checked.svg') no-repeat center center / 65px;
+    height: 129px;
+    line-height: 129px;
+    box-sizing: border-box;
+    border-radius: 24px;
+    color: #ffffff;
+    text-align: center;
+    background-color: #008AEE;
+}
+.timi-keyboard .timi-keyboard-close span {
+    vertical-align: middle;
 }
 
 .timi-keyboard-fader {
@@ -106,13 +113,13 @@
     width: 100%;
     height: 0;
     overflow: hidden;
-    background-color: #ffffff;
+    background-color: #e0e0e0;
     opacity: 0;
     transition: 0.3s opacity ease-in-out;
 }
 .timi-keyboard-fader.tkf-show {
     height: 83vh;
-    opacity: 0.61;
+    opacity: 0.41;
 }
 
 .tkc-custom-cursor {

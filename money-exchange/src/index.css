@@ -71,7 +71,7 @@ body {
     padding-right: 0;
     width: 50%;
     box-sizing: border-box;
-    border: 3pt solid #EDF0F4;
+    border: 2pt solid #EDF0F4;
     border-left: 0px;
     border-radius: 0 25px 25px 0;
     font-size: 200%;
@@ -80,6 +80,7 @@ body {
   
   .timi-ex .timi-ex-filter .timi-ex-data {
     padding: 30px 30px 0 30px;
+    
   }
   
   .timi-ex .timi-ex-filter .timi-drop-call {
@@ -87,7 +88,7 @@ body {
     padding: 30px 0;
     padding-left: 2vw;
     width: 20%;
-    border: 3pt solid #EDF0F4;
+    border: 2pt solid #EDF0F4;
     border-radius: 25px;
     cursor: pointer;
     text-transform: uppercase;

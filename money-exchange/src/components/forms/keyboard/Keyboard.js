@@ -56,7 +56,7 @@ class Keyboard extends React.Component {
                     <div className="timi-keyboard-keys">
                         {this.setKeys()}
                     </div>
-                    <div className={classer.closeButton} onClick={this.switchKeyboard}></div>
+                    <div className={classer.closeButton} onClick={this.switchKeyboard}><span>Рассчитать</span></div>
                 </div>
                 <div className={classer.fader}></div>
             </div>
