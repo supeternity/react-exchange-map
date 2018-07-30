@@ -4,11 +4,7 @@ import React from "react";
 
 class PairSelector extends React.Component {
 
-    setActivePair(e) {
-        this.state = {
-            showOptions: false
-        }
-
+    setActivePair = (e) => {
         this.props.getPair(this.props.type, e.target.value);
     }
 
@@ -27,7 +23,7 @@ class PairSelector extends React.Component {
             <select
                 className={'timi-drop-call ' + this.props.type}
                 value={this.props.pair[this.props.type]}
-                onChange={(e) => this.props.getPair(this.props.type, e.target.value)} >
+                onChange={this.setActivePair} >
                 {output}
             </select>
         )

@@ -1,46 +1,38 @@
 import React from "react";
 
+import Pair from "../../forms/pair/Pair";
+import Sorting from "../../forms/sorting/Sorting";
 import BankItem from "../bankItem/BankItem";
-import BranchesList from "../branchesList/BranchesList";
 
 //import style from "./banksList.sass";
 
 class BanksList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            outputOffset: { marginTop: '261px' }
+        }
+    }
 
     getList(banks) {
-        return banks.map((bank, i) => {
-            let branches = this.props.branches.map(branch => {
-                let res;
-                if (branch.bank === bank.name) {
-                    res = branch;
-                }
-                return res;
-            }).filter(value => {
-                return value !== undefined;
-            });
-            let branchOut;
-            let branchCount;
-            if (branches.length === 1) {
-                branchOut = branches[0].address.match(/ул.*|просп.*/g)[0];
-                branchCount = 1;
-            } else {
-                branchOut = branches[0].address.match(/ул.*|просп.*/g)[0];
-                branchCount = +branches.length;
-                console.log(branchCount);
-            }
+        let listing = banks.map((bank, i) => {
             return <BankItem
+                lng={this.props.lng}
+                dict={this.props.dict}
                 bank={bank}
-                branches={branchOut}
-                bracnhesCount={branchCount}
                 pair={this.props.pair}
+                term={this.props.term}
                 exchange={this.props.exchange[i]}
-                setActiveBranches={this.props.setActiveBranches}
-                key={i} />
+                setActiveBank={this.props.setActiveBank}
+                ExchangerStateSetter={this.props.ExchangerStateSetter}
+                key={i}
+                MONEY_EXCHANGE_API={this.props.MONEY_EXCHANGE_API} />
         });
+        return listing;
     }
 
     setSorting(arr) {
-        if (this.props.sorting.trade === 'buy') {
+        if (this.props.sorting.data === 'buy') {
             if (this.props.sorting.type === 'DESC') {
                 arr.sort((a, b) => {
                     return b.props.exchange.buy - a.props.exchange.buy
@@ -50,14 +42,14 @@ class BanksList extends React.Component {
                     return a.props.exchange.buy - b.props.exchange.buy
                 });
             }
-        } else {
+        } else if (this.props.sorting.data === 'distance') {
             if (this.props.sorting.type === 'DESC') {
                 arr.sort((a, b) => {
-                    return b.props.exchange.sell - a.props.exchange.sell
+                    return b.props.bank.distance - a.props.bank.distance
                 });
             } else {
                 arr.sort((a, b) => {
-                    return a.props.exchange.sell - b.props.exchange.sell
+                    return a.props.bank.distance - b.props.bank.distance
                 });
             }
         }
@@ -65,13 +57,36 @@ class BanksList extends React.Component {
         return arr;
     }
 
+    setBank = (first) => {
+        this.props.setActiveBank(first._id);
+    }
+
+    componentDidMount() {
+        this.setState({
+            outputOffset: { marginTop: `${document.getElementById('timiExFilter').offsetHeight}px` }
+        }) 
+    }
+
     render() {
-        let listing = this.getList(this.props.bank);
-        let ouput = this.setSorting(listing);
+        let listing = this.getList(this.props.banks);
+        let output = this.setSorting(listing);
 
         return (
-            <div className="timi-ex-list">
-                {ouput}
+            <div className="timi-ex-list" style={this.state.outputOffset}>
+                <div id="timiExFilter" className="timi-ex-filter">
+                    <Pair
+                        multiplier={this.props.multiplier}
+                        ExchangerStateSetter={this.props.ExchangerStateSetter}
+                        pair={this.props.pair}
+                        getPair={this.props.getPair}
+                        switchPair={this.props.switchPair} />
+                    <Sorting
+                        lng={this.props.lng}
+                        dict={this.props.dict}
+                        sorting={this.props.sorting}
+                        getSorting={this.props.getSorting} />
+                </div>
+                {output}
             </div>
         );
     }

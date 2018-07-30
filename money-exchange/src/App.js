@@ -11,15 +11,15 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          error: null,
-          isLoaded: false,
-          lng: undefined,
-          term: undefined,
-          rates: undefined,
-          branches: undefined
+            error: null,
+            isLoaded: false,
+            lng: undefined,
+            term: undefined,
+            banks: undefined,
+            satellite: undefined
         };
-    
-        this.setActiveBranches = this.setActiveBranches.bind(this);
+
+        this.setActiveBank = this.setActiveBank.bind(this);
     }
 
     // init config for API functions
@@ -48,52 +48,31 @@ class App extends Component {
             termData = await fetch(`${MONEY_EXCHANGE_API}/terminal/${initTermId}/`);
             termData = await termData.json();
             this.setState({
-                term: termData
+                term: termData,
+                satellite: {
+                    lat: termData.lat,
+                    lon: termData.lon
+                }
             })
-        } catch(err) {
+        } catch (err) {
             this.setState({
                 error: `processing: setTerminal() in ${this.constructor.name}.js: ${err}`
             })
         }
     }
-    async setRates() {
+    async setBanks() {
         try {
-            let ratesData;
-            ratesData = await fetch(`${MONEY_EXCHANGE_API}/rates/${this.state.term.termId}/`);
-            ratesData = await ratesData.json();
+            let banksData;
+            banksData = await fetch(`${MONEY_EXCHANGE_API}/banks/${this.state.term.termId}/`);
+            banksData = await banksData.json();
             this.setState({
-                rates: ratesData
+                banks: banksData
             });
-        } catch(err) {
+        } catch (err) {
             this.setState({
-                error: `processing: setRates() in ${this.constructor.name}.js: ${err}`
+                error: `processing: setBanks() in ${this.constructor.name}.js: ${err}`
             })
         }
-    }
-    async setBranches() {
-        try {
-            let branchesData;
-            branchesData = await fetch(`${MONEY_EXCHANGE_API}/branches/${this.state.term.termId}/`);
-            branchesData = await branchesData.json();
-            this.setState({
-                branches: branchesData
-            });
-        } catch(err) {
-            this.setState({
-                error: `processing: setBranches() in ${this.constructor.name}.js: ${err}`
-            })
-        }
-    }
-    
-    // app functions
-    setActiveBranches(bankName) {
-        let cache = this.state.branches;
-        Object.keys(cache).map(i => {
-            cache[i].bank === bankName ? cache[i].selected = true : cache[i].selected = false 
-        });
-        this.setState({
-            branches: cache
-        });
     }
 
     // init app of React
@@ -107,7 +86,7 @@ class App extends Component {
             }
             if (initConf.term) {
                 this.setTerminal(initConf.term).then(async () => {
-                    await Promise.all([this.setBranches(), this.setRates()]);
+                    await this.setBanks();
                     this.setState({
                         isLoaded: true
                     });
@@ -119,11 +98,41 @@ class App extends Component {
             })
         }
     }
-    
+
+    // app functions
+    setActiveBank(id) {
+        let cache = this.state.banks;
+        if (id !== 'all') {
+            Object.keys(cache).map(i => {
+                if (cache[i]._id === id) {
+                    cache[i].selected = true;
+                    this.setState({
+                        satellite: {
+                            lat: cache[i].lat,
+                            lon: cache[i].lon
+                        }
+                    })
+                } else {
+                    cache[i].selected = false
+                }
+            });
+        } else {
+            Object.keys(cache).map(i => {
+                cache[i].selected = 'undefined';
+            });
+            this.setState({
+                satellite: undefined
+            })
+        }
+        this.setState({
+            branches: cache
+        });
+    }
+
     // after mount
     render() {
         const { setActiveBranches } = this;
-        const { error, isLoaded, rates, lng, term, branches } = this.state;
+        const { error, isLoaded, banks, lng, term, satellite } = this.state;
 
         if (error) {
             return <div className="timi-error">Error: {error}</div>;
@@ -131,15 +140,15 @@ class App extends Component {
             return <div className="timi-loader">Loading...</div>;
         } else {
             return (
-            <div className="App">
-                <Exchanger
-                rates={rates}
-                branches={branches}
-                setActiveBranches={setActiveBranches}
-                lng={lng}
-                term={term}
-                mbtoken={process.env.REACT_APP_MAPBOX_TOKEN} />
-            </div>
+                <div className="App">
+                    <Exchanger
+                        banks={banks}
+                        lng={lng}
+                        term={term}
+                        satellite={satellite}
+                        MONEY_EXCHANGE_API={MONEY_EXCHANGE_API}
+                        setActiveBank={this.setActiveBank} />
+                </div>
             );
         }
     }

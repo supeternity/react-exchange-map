@@ -1,7 +1,5 @@
 import React from "react";
 
-import Pair from "../forms/pair/Pair";
-import Sorting from "../forms/sorting/Sorting";
 import BanksList from "../content/banksList/BanksList";
 import MapBox from "../map/mapBox/MapBox";
 
@@ -13,27 +11,36 @@ class Exchanger extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            multiplier: 10000,
+            multiplier: 1000,
             pair: {
-                one: "rub",
-                two: "usd"
+                one: "usd",
+                two: "rub"
             },
             sorting: {
-                data: "buy",
-                type: "DESC"
+                data: "distance",
+                type: "ASC"
+            },
+            selectedBankInfo: {
+                geometry: ''
+            },
+            dict: {
+                exchangeOffice: ['Exchange office', 'Пункт обмена'],
+                distance: ['Distance', 'Расстояние'],
+                exchange: ['Exchange', 'Обмен'],
+                km: ['Km.', 'Км.'],
+                min: ['min.', 'мин']
             }
         };
 
-        this.getMultiply = this.getMultiply.bind(this);
         this.getPair = this.getPair.bind(this);
         this.switchPair = this.switchPair.bind(this);
         this.getSorting = this.getSorting.bind(this);
+        this.ExchangerStateSetter = this.ExchangerStateSetter.bind(this);
+
     }
 
-    getMultiply(newMultiply) {
-        this.setState({
-            multiplier: newMultiply
-        })
+    ExchangerStateSetter(obj) {
+        this.setState(obj);
     }
 
     getPair(type, pair) {
@@ -79,21 +86,21 @@ class Exchanger extends React.Component {
     exchange() {
         const exchange = [];
         if (this.state.pair.one === 'rub' || this.state.pair.two === 'rub') {
-            exchange.buy = this.props.rates.bank.map((rate) => {
+            exchange.buy = this.props.banks.map(rate => {
                 return this.state.pair.two !== 'rub' ?
                     this.state.multiplier / rate[this.state.pair.two][0].sell :
                     this.state.multiplier * rate[this.state.pair.one][0].buy
             });
-            exchange.sell = this.props.rates.bank.map((rate) => {
+            exchange.sell = this.props.banks.map(rate => {
                 return this.state.pair.two !== 'rub' ?
                     this.state.multiplier / rate[this.state.pair.two][0].buy :
                     this.state.multiplier * rate[this.state.pair.one][0].sell
             });
         } else {
-            exchange.buy = this.props.rates.bank.map((rate) => {
+            exchange.buy = this.props.banks.map(rate => {
                 return (this.state.multiplier * rate[this.state.pair.one][0].sell) / rate[this.state.pair.two][0].buy;
             })
-            exchange.sell = this.props.rates.bank.map((rate) => {
+            exchange.sell = this.props.banks.map(rate => {
                 return (this.state.multiplier * rate[this.state.pair.one][0].buy) / rate[this.state.pair.two][0].sell;
             })
         }
@@ -108,34 +115,34 @@ class Exchanger extends React.Component {
 
     render() {
         let mxe = this.exchange();
-        const { multiplier, sorting, pair } = this.state;
-
+        const { multiplier, sorting, pair, selectedBankInfo, dict } = this.state;
         return (
             <div>
                 <MapBox
-                    branches={this.props.branches}
+                    banks={this.props.banks}
+                    selectedBankInfo={selectedBankInfo}
+                    setActiveBank={this.props.setActiveBank}
                     term={this.props.term}
-                    mbtoken={this.props.mbtoken} />
+                    satellite={this.props.satellite}
+                    ExchangerStateSetter={this.ExchangerStateSetter} />
                 <div className="timi-ex">
                     <div className="timi-logical-hub">
-                        <div className="timi-ex-filter">
-                            <Pair
-                                multiplier={multiplier}
-                                getMultiply={this.getMultiply}
-                                pair={pair}
-                                getPair={this.getPair}
-                                switchPair={this.switchPair} />
-                            <Sorting
-                                sorting={sorting}
-                                getSorting={this.getSorting} />
-                        </div>
                         <BanksList
-                            bank={this.props.rates.bank}
+                            lng={this.props.lng}
+                            dict={dict}
+                            multiplier={multiplier}
+                            banks={this.props.banks}
                             branches={this.props.branches}
-                            pair={this.state.pair}
+                            pair={pair}
+                            getPair={this.getPair}
+                            switchPair={this.switchPair}
                             sorting={sorting}
-                            setActiveBranches={this.props.setActiveBranches}
-                            exchange={mxe} />
+                            getSorting={this.getSorting}
+                            exchange={mxe}
+                            term={this.props.term}
+                            setActiveBank={this.props.setActiveBank}
+                            ExchangerStateSetter={this.ExchangerStateSetter}
+                            MONEY_EXCHANGE_API={this.props.MONEY_EXCHANGE_API} />
                     </div>
                 </div>
             </div>

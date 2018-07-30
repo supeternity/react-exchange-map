@@ -21,7 +21,7 @@ class Pair extends React.Component {
 
     setMultiply(key) {
         let s = this.props.multiplier.toString();
-        if (s.length <= 10) {
+        if (s.length <= 7) {
             switch (key) {
                 case '.':
                     /\./.test(s) ? s = s : s += '.';
@@ -35,7 +35,10 @@ class Pair extends React.Component {
         } else if (key === 'bs') {
             s = s.replace(/\d$|\.$/g, '')
         }
-        this.props.getMultiply(s);
+        let stateSetter = {
+            multiplier: s
+        }
+        this.props.ExchangerStateSetter(stateSetter);
     }
 
     setTextFormat() {
@@ -52,6 +55,11 @@ class Pair extends React.Component {
         return s.res;
     }
 
+    // из этой функции необходимо возвращать (!) pure компонент клавиатуры
+    // сейчас предельно топорное решение:
+    //  вызывающий клавиатуру объект так же должен определять какое значение
+    //  клавиатура устанавливает, касается всех сложных UI-элементов ввода
+    //  в данном состоянии код ниже черновик
     setKeyboard() {
         this.setState({
             showKeyboard: !this.state.showKeyboard
@@ -70,9 +78,9 @@ class Pair extends React.Component {
                     type={'one'}
                     pair={this.props.pair}
                     getPair={this.props.getPair} />
-                <span className="timi-synth-input" onClick={this.setKeyboard}>
+                <span onClick={this.setKeyboard} className="timi-synth-input">
                     <span className="ts-value">
-                        <span className="timi-input">{exchange}<span className={classer.cursor}></span></span>
+                        <span id="pairInput" className="timi-input">{exchange}<span className={classer.cursor}></span></span>
                     </span>
                     <span className="keyboard-cursor"></span>
                 </span>

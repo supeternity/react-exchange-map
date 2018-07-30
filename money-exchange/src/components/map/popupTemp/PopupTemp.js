@@ -15,13 +15,14 @@ const callNumber = str => {
     return 'tel:+7' + str;
 }
 
-class Popup extends PureComponent {
-
+class PopupTemp extends PureComponent {
     render() {
         const { info } = this.props;
         let stel = splitter(info.tel, ',');
         let stime = splitter(info.time, /\n/gm);
         let call = callNumber(info.tel);
+        
+        this.props.updateMapPosition(info.lat, info.lon, 13);
 
         return (
             <div className="timi-map-popup-inner">
@@ -51,4 +52,4 @@ class Popup extends PureComponent {
 
 }
 
-export default Popup;
+export default PopupTemp;
