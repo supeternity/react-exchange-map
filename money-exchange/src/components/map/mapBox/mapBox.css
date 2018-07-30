@@ -1,0 +1,87 @@
+.timi-zoomer {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+.mapboxgl-ctrl.mapboxgl-ctrl-group {
+    border-radius: 24px;
+    box-shadow: 0px 0px 80px 0px rgba(25, 92, 137, 0.3);
+}
+.timi-zoomer .mapboxgl-ctrl-icon {
+    width: 96px;
+    height: 96px;
+}
+.timi-zoomer .mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-in {
+    background: url('./resources/plus.svg') no-repeat center / 35%;
+}
+.timi-zoomer .mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-out {
+    background: url('./resources/minus.svg') no-repeat center / 35%;
+}
+.mapboxgl-popup-content {
+    border-radius: 24px;
+    box-shadow: 0px 0px 80px 0px rgba(25, 92, 137, 0.3);
+}
+.timi-map-popup-inner {
+    font-size: 24px;
+    min-width: 450px;
+}
+.timi-map-popup-inner .branchInfo {
+    margin-top: 17px;
+    padding: 15px 30px;
+}
+.timi-custom-popup {
+    margin-top: -6px;
+    margin-left: -6px;
+    /* transition: 0.3s transform ease-out; */
+}
+.timi-custom-popup .mapboxgl-popup-content {
+    border-radius: 31px;
+    padding: 0;
+}
+.timi-map-popup-inner .bankName {
+    font-size: 28px;
+    border-bottom: 1px solid #cccccc;
+    padding: 30px;
+    padding-bottom: 17px;
+    line-height: 33px;
+    box-sizing: border-box;
+}
+.timi-map-popup-inner .branchName {
+    font-size: 20px;
+    color: #9c9c9c;
+}
+.timi-map-popup-inner .branchConcrete {
+    margin-left: -3px; 
+}
+.timi-map-popup-inner .branchConcrete div {
+    margin-bottom: 14px;
+    padding-left: 44px;
+    font-size: 22px;
+}
+.timi-map-popup-inner .branchStreet {
+    background: url('./resources/popup-pin.svg') no-repeat top left;
+    background-size: 27px;
+}
+.timi-map-popup-inner .branchTime {
+    background: url('./resources/popup-clock.svg') no-repeat top 2px left 1px;
+    background-size: 24px;
+}
+.timi-map-popup-inner .branchTel {
+    background: url('./resources/popup-call-gray.svg') no-repeat top 4px left 2px;
+    background-size: 22px;
+    line-height: 36px;
+}
+.timi-map-popup-inner .callTo {
+    display: block;
+    text-decoration: none;
+    border-top: 1px solid #cccccc;
+    height: 69.93px;
+    background: url('./resources/popup-call-green.svg') no-repeat center center / 8%;
+}
+
+.timi-custom-popup .mapboxgl-popup-close-button {
+    font-size: 52px;
+    line-height: 42px;
+    right: 10px;
+    top: 10px;
+}
