@@ -38,7 +38,7 @@ class BankItem extends React.Component {
 
         return (
             <div className={classer.item} onClick={this.setBank}>
-                <div className="timi-ex-name timi-ex-fav-to timi-ui-cell-slave" style={{ backgroundImage: `url('http://192.168.0.68:3000/money-exchange/logos/${this.props.bank.logoFile}')` }}>
+                <div className="timi-ex-name timi-ex-fav-to timi-ui-cell-slave" style={{ backgroundImage: `url('${process.env.REACT_APP_API_HOST}/money-exchange/logos/${this.props.bank.logoFile}')` }}>
                     <span className="timi-ex-name-fader">{this.props.bank.bank}</span>
                     <div className="timi-ex-street">{address}</div>
                 </div>
