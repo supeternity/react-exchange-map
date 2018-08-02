@@ -23,7 +23,12 @@ class BankItem extends React.Component {
             sell: this.props.pair.two !== 'rub' ? this.props.bank[this.props.pair.two][0].sell : this.props.bank[this.props.pair.one][0].sell,
             buy: this.props.pair.two !== 'rub' ? this.props.bank[this.props.pair.two][0].buy : this.props.bank[this.props.pair.one][0].buy
         }
-        let address = this.props.bank.address.match(/ул.*|просп.*/g)[0];
+        let address
+        if (/ул\.\s.*|просп\.\s.*|наб\.\s.*|пл\.\s.*|ш\.\s.*|бул\.\s.*|\d.я.*|\d.й.*/g.test(this.props.bank.address)) {
+            address = this.props.bank.address.match(/ул\.\s.*|просп\.\s.*|наб\.\s.*|пл\.\s.*|ш\.\s.*|бул\.\s.*|\d.я.*|\d.й.*/g)[0];
+        } else {
+            address = this.props.bank.address;
+        }
         if (typeof this.props.branches === 'string') {
             address = this.props.branches
         } else if (typeof this.props.branches === 'number') {
