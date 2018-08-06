@@ -2,6 +2,9 @@
   position: fixed;
   left: 0;
   top: 0;
+  width: 100vw;
+  height: 100vh;
+  background:#fff url('./resources/images/vectors/loader.svg') no-repeat center center / 4%;
   z-index: 99999;
 }
 

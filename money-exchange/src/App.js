@@ -131,13 +131,12 @@ class App extends Component {
 
     // after mount
     render() {
-        const { setActiveBranches } = this;
         const { error, isLoaded, banks, lng, term, satellite } = this.state;
 
         if (error) {
             return <div className="timi-error">Error: {error}</div>;
         } else if (!isLoaded) {
-            return <div className="timi-loader">Loading...</div>;
+            return <div className="timi-loader"></div>;
         } else {
             return (
                 <div className="App">
