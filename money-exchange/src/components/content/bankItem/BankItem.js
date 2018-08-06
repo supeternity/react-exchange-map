@@ -4,17 +4,14 @@ import NumberFormat from 'react-number-format';
 //import style from "./bankItem.sass";
 
 class BankItem extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.setBank = this.setBank.bind(this.setBank);
+    }
 
-    setBank = async () => {
-        let geometry;
-        geometry = await fetch(`${this.props.MONEY_EXCHANGE_API}/route/${this.props.term.termId}/${this.props.bank.lon},${this.props.bank.lat}/`);
-        geometry = await geometry.json();
-        this.props.bank.geometry = geometry;
-        let stateSetter = {
-            selectedBankInfo: this.props.bank
-        }
-        this.props.ExchangerStateSetter(stateSetter);
-        this.props.setActiveBank(this.props.bank._id);
+    setBank = () => {
+        this.props.setActiveBank(this.props.bank);
     }
 
     render() {

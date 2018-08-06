@@ -12,6 +12,7 @@ class Exchanger extends React.Component {
         super(props);
         this.state = {
             multiplier: 1000,
+            staticMultiplier: 1000,
             pair: {
                 one: "usd",
                 two: "rub"
@@ -88,20 +89,20 @@ class Exchanger extends React.Component {
         if (this.state.pair.one === 'rub' || this.state.pair.two === 'rub') {
             exchange.buy = this.props.banks.map(rate => {
                 return this.state.pair.two !== 'rub' ?
-                    this.state.multiplier / rate[this.state.pair.two][0].sell :
-                    this.state.multiplier * rate[this.state.pair.one][0].buy
+                    this.state.staticMultiplier / rate[this.state.pair.two][0].sell :
+                    this.state.staticMultiplier * rate[this.state.pair.one][0].buy
             });
             exchange.sell = this.props.banks.map(rate => {
                 return this.state.pair.two !== 'rub' ?
-                    this.state.multiplier / rate[this.state.pair.two][0].buy :
-                    this.state.multiplier * rate[this.state.pair.one][0].sell
+                    this.state.staticMultiplier / rate[this.state.pair.two][0].buy :
+                    this.state.staticMultiplier * rate[this.state.pair.one][0].sell
             });
         } else {
             exchange.buy = this.props.banks.map(rate => {
-                return (this.state.multiplier * rate[this.state.pair.one][0].sell) / rate[this.state.pair.two][0].buy;
+                return (this.state.staticMultiplier * rate[this.state.pair.one][0].sell) / rate[this.state.pair.two][0].buy;
             })
             exchange.sell = this.props.banks.map(rate => {
-                return (this.state.multiplier * rate[this.state.pair.one][0].buy) / rate[this.state.pair.two][0].sell;
+                return (this.state.staticMultiplier * rate[this.state.pair.one][0].buy) / rate[this.state.pair.two][0].sell;
             })
         }
 
@@ -115,7 +116,7 @@ class Exchanger extends React.Component {
 
     render() {
         let mxe = this.exchange();
-        const { multiplier, sorting, pair, selectedBankInfo, dict } = this.state;
+        const { multiplier, staticMultiplier, sorting, pair, selectedBankInfo, dict } = this.state;
         return (
             <div>
                 <MapBox
@@ -131,6 +132,7 @@ class Exchanger extends React.Component {
                             lng={this.props.lng}
                             dict={dict}
                             multiplier={multiplier}
+                            staticMultiplier={staticMultiplier}
                             banks={this.props.banks}
                             branches={this.props.branches}
                             pair={pair}

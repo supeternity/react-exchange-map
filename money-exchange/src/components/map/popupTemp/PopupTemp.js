@@ -21,8 +21,12 @@ class PopupTemp extends PureComponent {
         let stel = splitter(info.tel, ',');
         let stime = splitter(info.time, /\n/gm);
         let call = callNumber(info.tel);
-        
-        this.props.updateMapPosition(info.lat, info.lon, 13);
+        let address;
+        if (/ул\.\s.*|просп\.\s.*|наб\.\s.*|пл\.\s.*|ш\.\s.*|бул\.\s.*|\d.я.*|\d.й.*/g.test(info.address)) {
+            address = info.address.match(/ул\.\s.*|просп\.\s.*|наб\.\s.*|пл\.\s.*|ш\.\s.*|бул\.\s.*|\d.я.*|\d.й.*/g)[0];
+        } else {
+            address = info.address;
+        }
 
         return (
             <div className="timi-map-popup-inner">
@@ -35,7 +39,7 @@ class PopupTemp extends PureComponent {
                 <div className="branchInfo">
                     <div className="branchConcrete">
                         <div className="branchStreet">
-                            {info.address.match(/ул.*|просп.*/g)[0]}
+                            {address}
                         </div>
                         <div className="branchTime">
                             {stime}

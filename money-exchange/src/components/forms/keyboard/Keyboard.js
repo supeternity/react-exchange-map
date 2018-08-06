@@ -50,11 +50,13 @@ class Keyboard extends React.Component {
     faderTap = (e) => {
         if (e.target.className === 'timi-keyboard-fader tf-show') {
             this.props.swit();
+            this.props.sendValue();
         }
     }
 
     switchKeyboard(e) {
         this.props.swit();
+        this.props.sendValue();
     }
 
     render() {

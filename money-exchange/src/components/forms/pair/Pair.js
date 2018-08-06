@@ -16,6 +16,7 @@ class Pair extends React.Component {
         }
 
         this.setMultiply = this.setMultiply.bind(this);
+        this.setStaticMultiply = this.setStaticMultiply.bind(this);
         this.setKeyboard = this.setKeyboard.bind(this);
     }
 
@@ -37,6 +38,13 @@ class Pair extends React.Component {
         }
         let stateSetter = {
             multiplier: s
+        }
+        this.props.ExchangerStateSetter(stateSetter);
+    }
+
+    setStaticMultiply() {
+        let stateSetter = {
+            staticMultiplier: this.props.multiplier
         }
         this.props.ExchangerStateSetter(stateSetter);
     }
@@ -93,7 +101,8 @@ class Pair extends React.Component {
                     value={this.props.multiplier}
                     show={this.state.showKeyboard}
                     swit={this.setKeyboard}
-                    sendKey={this.setMultiply} />
+                    sendKey={this.setMultiply}
+                    sendValue={this.setStaticMultiply} />
             </div>
         );
     }

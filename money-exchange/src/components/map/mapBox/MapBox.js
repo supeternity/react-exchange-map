@@ -1,9 +1,10 @@
 import React from "react";
 // import MapGL, { NavigationControl, Marker, FlyToInterpolator } from "react-map-gl";
-import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, Feature, Marker, Popup } from "react-mapbox-gl";
 import polyline from "@mapbox/polyline";
 
 import MarkerTemp from "../markerTemp/MarkerTemp";
+import PopupTemp from "../popupTemp/PopupTemp";
 
 import "./mapBox.css";
 import YouAreHereSvg from "./resources/you_are_here.svg";
@@ -85,26 +86,21 @@ class MapBox extends React.Component {
     //     this.props.setActiveBank('all');
     // }
 
-    // setBranchPopup() {
-    //     let { selectedBankInfo } = this.props;
-    //     return selectedBankInfo && (
-    //         <Popup tipSize={5}
-    //             anchor="bottom"
-    //             latitude={selectedBankInfo.lat}
-    //             longitude={selectedBankInfo.lon}
-    //             className={"timi-custom-popup"}
-    //             closeOnClick={false}
-    //             dynamicPosition={false}
-    //             onClose={this.setBank} >
-    //             <PopupTemp
-    //                 info={selectedBankInfo}
-    //                 updateMapPosition={this.updateMapPosition} />
-    //         </Popup>
-    //     )
-    // }
+    setBranchPopup() {
+        let { selectedBankInfo } = this.props;
+        if (selectedBankInfo) {
+            return selectedBankInfo && (
+                <Popup coordinates={[this.props.selectedBankInfo.lat, this.props.selectedBankInfo.lon]}>
+                    <PopupTemp
+                        info={selectedBankInfo} />
+                </Popup>
+            )
+        }        
+    }
 
     render() {
         let branches = this.props.banks.map(this.setBranchMarker);
+        let popup = this.setBranchPopup();
 
         let lineLayout = {
             'line-cap': 'round',
@@ -151,14 +147,15 @@ class MapBox extends React.Component {
                     center={[this.props.satellite.lon, this.props.satellite.lat]}
                     pitch={[39]}
                     zoom={[13]} >
-                      {branches}
-                      <Marker
+                        {branches}
+                        <Marker
                         coordinates={[this.props.term.lon, this.props.term.lat]} >
                         <div><img src={YouAreHereSvg} width={63.6} height={90} alt={'YAH'} /></div>
-                    </Marker>
-                    <Layer type="line" layout={lineLayout} paint={linePaint}>
-                        <Feature coordinates={mapBoxPolyline} />
-                    </Layer>
+                        {/* {popup} */}
+                        </Marker>
+                        <Layer type="line" layout={lineLayout} paint={linePaint}>
+                            <Feature coordinates={mapBoxPolyline} />
+                        </Layer>
                 </MapGL>
             </div>
         );

@@ -5,6 +5,10 @@
   z-index: 99999;
 }
 
+html {
+  overflow: hidden;
+}
+
 body {
     position: relative;
     margin: 0;
@@ -165,12 +169,17 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
   }
+
+  .ReactVirtualized__List {
+    outline: 0;
+  }
   
   .timi-ex .timi-ex-bank {
     position: relative;
     padding: 2vw 30px;
     border: 3px solid transparent;
     border-left: 0;
+    box-sizing: border-box;
     transition: 0.4s all ease;
     box-shadow: 0 -1px 0px 0 #3a8afd26;
   }
@@ -191,9 +200,9 @@ body {
     border-left: 0;
   }
   
-  .timi-ex .timi-ex-bank:last-child {
+  /* .timi-ex .timi-ex-bank:last-child {
     border-bottom: 0;
-  }
+  } */
   
   .timi-ex .timi-ex-bank .timi-ui-cell-slave div {
     line-height: 40px;
